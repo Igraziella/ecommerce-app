@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <title>Cart</title>
+
+    <style>
+        .product-card {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            margin: 20px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        img {
+            max-width: 200px;
+            max-height: 200px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+
+        .details {
+            /* margin-left: auto; */
+            justify-content: space-between;
+            text-align: right;
+        }
+
+        .quantity-input {
+            width: 50px;
+            text-align: center;
+        }
+
+        .remove-btn {
+            background-color: #dc3545;
+            color: #fff;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .cart-summary {
+            margin-top: 30px;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+
+        .center-btn {
+            text-align: center;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div class="container">
+        <h1 class="mt-5 mb-4">Cart</h1>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <ul>
+                    {% for category, message in messages %}
+                        <li class="{{category}}">{{message}}</li>
+                    {% endfor %}
+                </ul>   
+            {% endif %}
+        {% endwith %}
+
+
+        {% for carts in user_cart_list %}
+            {% if  product_id == carts.product %}
+                <div class="product-card">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <img src="{{ url_for('static', filename='IMAGE/' + carts.image_url) }}" alt="{{ carts.product_name }}" class="mb-3">
+                        </div>
+                        <div class="col-md-6 details">
+                            <h4>{{carts.product_name.title() }}</h4>
+                            <p>{{carts.description}}</p>
+                            <p>₦{{carts.price }}</p>
+                            
+                            <!-- Make quantity editable -->
+                            <!-- <form   method="post" action="update_cart/{{carts.product_id}}">
+                                {{form.hidden_tag()}}
+                                {{form.quantity.label}}          {{carts.quantity}} <br>
+                                {{form.submit() }}   
+                            </form> -->
+                            
+                        
+                        </div>
+                    </div>
+                </div>
+            {%  endif  %}
+        {% endfor %}
+        <!-- "Update Cart" button centered at the bottom -->
+
+        <!-- <div class="row mt-4">
+            <div class="col-md-12 center-btn">
+                <button class="btn btn-primary" type="submit" id="updateCartBtn">Update Cart</button>
+            
+                
+            </div>
+        </div> -->
+
+
+        <!-- Cart Summary -->
+        <div class="row">
+            <div class="col-md-12 cart-summary">
+                <h3>Cart Summary</h3>
+                <!-- Add logic here to calculate and display the total amount based on the quantity of each item -->
+                <p>Total Amount: ₦{{ total_amount }}</p>
+            </div>
+        </div>
+
+        <!-- "checkout" button centered at the bottom -->
+        <div class="row mt-4">
+            <div class="col-md-12 center-btn">
+                <button class="btn btn-primary" id="updateCartBtn" >Checkout</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <title> Cart</title>
+</head>
+
+<style>
+
+    .cart{
+        border-top-width: 3px;
+        
+    }
+
+</style>
+<body>
+    <div class="container">
+        <h1 class="mt-5 mb-4">Cart</h1>
+            <div class="row">
+
+                {%  with messages = get_flashed_messages(with_categories=true)  %} 
+                        {% if messages %}
+                            <ul>
+                                {% for category, message in messages %}
+                                    <li class="{{category}}">{{message}}</li>
+                                {%  endfor  %}
+                            </ul>   
+                        {%  endif  %}
+                {%  endwith  %}
+
+
+                <!-- {% for carts in product %} -->
+                    <div class="product-card">
+                        <img src="{{ url_for('static', filename='IMAGE/' + user_cart_list.image_url) }}" alt="{{ user_cart_list.product_name }}" class="mb-3">
+                        <h4>{{user_cart_list.product_name.title() }}</h4>
+                        <p>{{user_cart_list.description}}</p>
+                        <p> ₦{{user_cart_list.price }}</p>
+                            {% if user_cart_list.quantity %}
+                                <p>{{user_cart_list.quantity}}</p>  
+                            {%  endif  %}
+                        <a href="{{ url_for('cart_order'), product_id=product.id }}" class="btn btn-primary btn-sm" >Place order</a>
+                    </div> 
+                <!-- {% endfor %} -->
+            </div>
+
+
+            <!-- <div>
+                    {%  with messages = get_flashed_messages(with_categories=true)  %} 
+                        {% if messages %}
+                            <ul>
+                                {% for category, message in messages %}
+                                    <li class="{{category}}">{{message}}</li>
+                                {%  endfor  %}
+                            </ul>   
+                        {%  endif  %}
+                   {%  endwith  %}
+            </div> -->
+            
+    </div>
+</body>
+</html>

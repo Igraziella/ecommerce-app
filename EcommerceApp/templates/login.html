@@ -1,0 +1,67 @@
+
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Your Flask App</title>
+
+
+
+
+        
+    </head>
+            <style>
+                category.error {
+                        color: red;
+                    }   
+
+                    category.info {
+                        color: blue;
+                    }
+
+                    category.success {
+                        color: green;
+                    }
+
+            </style>
+    <body>
+            {%  with messages = get_flashed_messages(with_categories=true)  %} 
+                {% if messages %}
+                    <ul>
+                        {% for category, message in messages %}
+                            <li class="{{category}}">{{message}}</li>
+                        {%  endfor  %}
+                    </ul>   
+                {%  endif  %}
+            {%  endwith  %}
+
+            {%  for error in form.errors %}
+                        {{error}}
+            
+            {%  endfor%}
+
+            <div>
+                <h1>Your Flask App</h1>
+            </div>
+
+            <form method="POST" action="/login">
+                {{ form.hidden_tag() }}
+                {{ form.email.label }} {{ form.email(size=20) }}<br>
+                {{ form.password.label }} {{ form.password(size=20) }}<br>
+                {{ form.submit()}}
+            </form>
+            <!-- <p> {%  if current_user.is_authenticated %}
+    
+                    If new user, <a href="/register">register </a>
+
+                {%  endif %} -->
+
+                If new user, <a href="/register">register </a>
+
+            </p>
+        
+    </body> 
+    </html>
+
+

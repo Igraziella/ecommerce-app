@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Home</title>
+  
+</head>
+
+<style>
+    table,th, td {
+        border: 1px solid;
+    }
+</style>
+
+
+
+
+<body>
+    <p>
+        welcome
+        <a href="{{ url_for('signup') }}" >signup</a>
+        <a href="{{ url_for('login') }}" >login</a>
+    </p>
+    {{data}}
+
+    <table style="width: 100%;">
+        {% for product in products %}  
+        <tr>
+                
+            <th>product name</th>
+            <th>product description</th>
+            <th>product price</th>
+            <th>product image</th>
+                
+        </tr>
+            
+        
+
+        <tr>
+            <td>{{product.product_name}}</td>
+            <td>{product.description}</td>
+            <td>{product.price}</td>
+            <td>{product.image_url}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+
+
+
+    
+</body>
+</html>

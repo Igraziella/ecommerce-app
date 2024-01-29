@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Order Page</title>
+    <style>
+        .product {
+            margin-bottom: 20px;
+        }
+
+
+        /* .orderForm{
+
+            border-top: 20;
+            color: brown;
+            text-align: justify;
+        } */
+
+        .order_details {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            margin: 20px;
+            padding: 20px;
+            text-align: left;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            
+
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Place an Order</h1>
+    <div class="products">
+        <!-- {% for product in product %}
+        <div class="product">
+            <h3>{{ product.name }}</h3>
+            <img src="{{ product.image_url }}" alt="{{ product.name }}">
+            <p>Quantity: {{ product.quantity }}</p>
+        </div>
+        {% endfor %} -->
+            {%  with messages = get_flashed_messages(with_categories=true)  %} 
+            {% if messages %}
+                <ul>
+                    {% for category, message in messages %}
+                        <li class="{{category}}">{{message}}</li>
+                    {%  endfor  %}
+                </ul>   
+            {%  endif  %}
+           {%  endwith  %}
+    </div>
+
+  
+    <form class="orderForm" method="post", action="/order">
+        <div  >
+         <h2> Customer Information</h2>
+            {{form.hidden_tag()}}
+            {{form.first_name.label}}               {{form.first_name()}} <br><br>
+            {{form.last_name.label}}                {{form.last_name()}} <br><br>
+            {{form.country.label}}                  {{form.country()}} <br><br>
+            {{form.state.label}}                    {{form.state()}} <br><br>
+            {{form.city.label}}                     {{form.city()}} <br><br>
+            {{form.street_address.label}}           {{form.street_address()}}<br><br>
+            {{form.contact_number.label}}           {{form.contact_number()}} <br><br>
+            {{form.status.label}}                   {{form.status()}}<br><br>
+            {{form.addition_information.label}}     {{form.addition_information()}}<br><br>
+
+            <!-- <h3>Payment Method</h3>  -->
+            {{form.payment_method.label}}           {{form.payment_method()}}<br><br>
+        
+        </div>
+
+        <!-- <div class="col-md-12 order_details" >
+            <h3>Payment Method</h3> 
+            <p>
+                <input type="radio"  name="payment_method"  value="Pay through direct transfer">
+                <label for="transfer">Pay through direct transfer</label>
+            </p>
+            <p>
+                <input type="radio"  name="payment_method"  value="Pay cash on delivery">
+                <label for="transfer" >Pay cash on delivery</label>
+            </p>
+        </div> -->
+
+        <div class="row">
+                <div class="col-md-12 cart-summary">
+                    <h3>Order Summary</h3>
+                <!-- Add logic here to calculate and display the total amount based on the quantity of each item -->
+                    {% for product, price in sub_amount_dict.items() %}
+                         {{product}} : ₦{{price}}<br>
+                    {% endfor  %}
+                
+                    <p>Grand Total: ₦{{ total_amount }}</p>
+                </div>
+        </div>
+
+
+        {{form.submit() }}  
+
+         
+
+    </form>
+<!-- 
+    <script>
+        const orderForm = document.getElementById('orderForm');
+
+        // Handle Order Submission
+        orderForm.addEventListener('submit', function (event) {
+            event.preventDefault();
+            const productName = document.getElementById('productName').value;
+            const quantity = document.getElementById('quantity').value;
+            const userEmail = document.getElementById('userEmail').value;
+            const userPhone = document.getElementById('userPhone').value;
+
+            // Submit Order
+            fetch('/order', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        productName,
+                        quantity,
+                        userEmail,
+                        userPhone
+                    })
+                })
+                .then(response => response.text())
+                .then(message => alert(message))
+                .catch(error => console.error(error));
+        });
+    </script> -->
+
+       
+</body>
+
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Page</title>
+    <style>
+        .product {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Products</h1>
+    <div id="products">
+            {%  with messages = get_flashed_messages(with_categories=true)  %} 
+            {% if messages %}
+                <ul>
+                    {% for category, message in messages %}
+                        <li class="{{category}}">{{message}}</li>
+                    {%  endfor  %}
+                </ul>   
+            {%  endif  %}
+           {%  endwith  %}
+    </div>
+
+    <h2>Confirmation of Order</h2>
+        customer name: {{customer_name}}<br><br>
+        address: {{address}}<br><br>
+        contact number: {{contact_number}}<br><br>
+        email: {{email}}<br><br>
+
+        product name: {{product_name}}<br><br>
+        invoice: {{invoice}}<br><br>
+        quantity :{{quantity}}<br><br>
+        unit price: {{unit_price}}<br><br>
+        total price: {{total_price}}<br><br>
+        <a href="{{ url_for('checkout', product_id=product_id) }}"><button> Confirm Order</button></a>
+
+</html>
