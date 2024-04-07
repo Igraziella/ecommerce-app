@@ -144,11 +144,15 @@ def add_product():
             filename = secure_filename(image_file.filename)
             try:
                 image_filename = f'{product_name}_{price}_' + str(shortuuid.uuid()) + os.path.splitext(filename)[-1]
-                # print(image_filename)
+                if not image_filename:
+                    flash ("image_file not found")
+                    # print(image_filename)
                 image_path = os.path.join(app.config['UPLOAD_FOLDER'], image_filename)
+                if not image_path:
+                    flash ("image_path not found")
                 # print(image_path)
                 image_file.save(image_path)
-                new_product = Product( product_name =product_name,price=price, description=description, category_name=category_name, image_url=image_filename)
+                new_product = Product( product_name =product_name, price=price, description=description, category_name=category_name, image_url=image_filename)
                 db.session.add(new_product)
                 db.session.commit()
                 flash('product added succesfully', 'success')

@@ -30,9 +30,15 @@ csrf = CSRFProtect(app)
 
 # os.getenv('SECRET_KEY')
 
+# app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+# load_dotenv()
+# app.config['SQLALCHEMY_DATABASE_URI'] =  os.getenv('SQLALCHEMY_DATABASE_URI')
+
+
+app.config['SQLALCHEMY_DATABASE_URI'] =  'sqlite:///shop.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-load_dotenv()
-app.config['SQLALCHEMY_DATABASE_URI'] =  os.getenv('SQLALCHEMY_DATABASE_URI') 
+
+
 
 # Email configuration
 app.config['MAIL_SERVER'] = 'smtp.gmail.com'
@@ -43,8 +49,9 @@ app.config['MAIL_USE_SSL'] = True
 mail = Mail(app)
 
 db = SQLAlchemy(app)
-app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')
-app.config['UPLOAD_FOLDER'] = 'C:/Users/HP/Desktop/lugard/backend/static/IMAGE'
+
+app.config['SECRET_KEY'] = 'bf3e1fa624133c7b254c2dacda42c30793198d9524c9b99aaad0be40cb7b1ca2'
+app.config['UPLOAD_FOLDER'] = 'C:/Users/HamadaSalimGTrd/Desktop/ecommerce-app/EcommerceApp/static/IMAGE'
 app.config['ALLOWED_EXTENSIONS'] = {'png','PNG', 'jpg','JPG','jpeg','JPEG','gif','GIF'}
 
 
